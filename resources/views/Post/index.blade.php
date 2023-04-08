@@ -1,5 +1,17 @@
 @extends('layout.main')
 @section('content')
+    @if(session()->has('alert') ) {{--2 chi usuli if ni ichiga yozishni $alert = session()->pull('alert'); keyin shuni alish chun {{session()->pull('aleart')}} demaymisda shunday $alert dessak bo'lgani--}}
+        <div class="alert alert-primary" role="alert">
+           {{ session()->pull('alert') }}
+        </div>
+    @endif
+    @if($create = session()->pull('create'))
+        <div class="alert alert-primary" role="alert">
+            {{$create}}
+        </div>
+    @endif
+
+
 <div class="containers">
     <div class="row mt-4">
         <div class="col-2"></div>
@@ -32,6 +44,7 @@
                         </form>
                     </td>
                 </tr>
+
                 @endforeach
                 </tbody>
             </table>
