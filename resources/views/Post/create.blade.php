@@ -4,6 +4,16 @@
     <div class="row mt-4">
         <div class="col-2"></div>
         <div class="col-8">
+            @if($errors->any())
+                <ul>
+                    @foreach($errors->all() as $massage)
+
+                    <li>
+                        {{ $massage }}
+                    </li>
+                    @endforeach
+                </ul>
+            @endif
             <form action="{{route('post.store')}}" method="POST">
                 @csrf
                 <div class="mb-3">
