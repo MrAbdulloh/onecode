@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::query()->latest()->get();
         return view('post.index')->with('posts', $posts);
     }
 
@@ -21,20 +23,17 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        $validated = validator($request->all(), [
-            'title' => ['required', 'string'],
-
-        ])->validate();
         session(['create' => __('Post Create')]);
-
-        Post::create([
+        Post::query()->firstOrCreate([
             'title' => $request->title,
-            'body' => $request->body
-
+        ], [
+            'body' => $request->body,
+            'published_at' => new Carbon($request->published_at),
+            'user_id' => User::query()->value('id')
         ]);
+
         return redirect()->route('post.index');
     }
-
     public function edit(Post $post)
     {
 //        $post = Post::query()->findOrFail($id);

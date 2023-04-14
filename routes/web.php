@@ -22,5 +22,7 @@ Route::get('test', [\App\Http\Controllers\TestController::class, 'test']);
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('login.index');
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'store'])->name('login.store');
 
+//Route::view('register/create', 'auth.index');
 Route::get('register', [App\Http\Controllers\Auth\RegisterController::class, 'index'])->name('register.index');
+//Route::get('register/create', [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('register.create');
 Route::post('register', [App\Http\Controllers\Auth\RegisterController::class, 'store'])->name('register.store');

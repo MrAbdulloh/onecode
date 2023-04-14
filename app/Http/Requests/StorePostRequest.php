@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePostRequest extends FormRequest
@@ -24,8 +25,10 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>['required','string'],
-            'body'=>['required','string'],
+
+            'title' => ['required', 'string'],
+            'body' => ['required', 'string'],
+            'published_at' => ['required', 'string', 'date'],
         ];
     }
 }

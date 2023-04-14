@@ -24,6 +24,11 @@
                     <label for="body" class="form-label">Body</label>
                     <input type="text" value="{{old('body')}}" name="body" class="form-control" id="body">
                 </div>
+                <div class="mb-3">
+                    <label for="published_at" class="form-label">Published_at</label>
+                    <input type="datetime-local" name="published_at" placeholder="YY.DD.MM" class="form-control"
+                           id="published_at">
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

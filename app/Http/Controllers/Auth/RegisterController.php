@@ -3,22 +3,39 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
+
     public function index()
     {
+
         return view('auth.register');
     }
+//    public function create()
+//    {
+//        $user = User::query()->latest()->get();
+//
+//        return view('auth.index')->with('users',$user);
+//
+//    }
 
     public function store(Request $request)
     {
-        $name = $request->name;
-        $email = $request->email;
-        $password = $request->password;
+        session(['store' => __('Create')]);
+        $validated = $request->validate([
+            'name' => ['required', 'string',],
+            'email' => ['required', 'string'],
+            'password' => ['required', 'string'],
+        ]);
+
+        User::query()->create($validated);
 
 
-        dd($name,$email, $password);
+        return redirect()->route('post.index');
+
+
     }
 }
