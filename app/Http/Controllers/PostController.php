@@ -12,13 +12,23 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::query()->latest()->get();
+        $posts = Post::query()->latest()->paginate(10);
         return view('post.index')->with('posts', $posts);
     }
 
     public function create()
     {
         return view('post.create');
+    }
+
+    public function show($id)
+    {
+
+
+        $post = Post::query()->findOrFail($id);
+
+
+        return view('post.show')->with('post', $post);
     }
 
     public function store(StorePostRequest $request)
@@ -34,6 +44,7 @@ class PostController extends Controller
 
         return redirect()->route('post.index');
     }
+
     public function edit(Post $post)
     {
 //        $post = Post::query()->findOrFail($id);
@@ -48,9 +59,10 @@ class PostController extends Controller
         $post->update([
             'title' => $request->title,
             'body' => $request->body,
+            'published_at' => $request->published_at,
         ]);
 
-        return redirect()->route('post.index');
+        return redirect()->route('post.show', $post->id);
     }
 
     public function delete(Post $post)
