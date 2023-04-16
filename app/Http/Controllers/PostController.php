@@ -12,7 +12,9 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::query()->latest()->get();
+
+        $posts = Post::query()->latest()->paginate(10);
+//        $posts = Post::query()->limit(12)->offset(2)->get();
         return view('post.index')->with('posts', $posts);
     }
 
