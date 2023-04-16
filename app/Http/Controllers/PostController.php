@@ -24,10 +24,11 @@ class PostController extends Controller
     public function show($id)
     {
 
+        $post = cache()->remember("post.{$id}", now()->addHour(), function () use ($id) {
 
-        $post = Post::query()->findOrFail($id);
+            return Post::query()->findOrFail($id);
 
-
+        });
         return view('post.show')->with('post', $post);
     }
 
